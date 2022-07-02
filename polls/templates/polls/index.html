@@ -1,0 +1,12 @@
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <!--하드코딩-->
+        <!--<li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>-->
+        <!--{% url %} template 태그를 이용해 경로를 직접 입력하지 않고 template에 정의한 name을 사용-->
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
