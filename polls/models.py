@@ -2,6 +2,7 @@ import datetime
 
 from django.db import models
 from django.utils import timezone
+from django.contrib import admin
 
 
 class Question(models.Model):
@@ -16,6 +17,12 @@ class Question(models.Model):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
     """
     # 테스트 코드를 통한 버그 수정
+    # admin.display decorator : 임의의 메서드에 대한 정렬 및 열 머리글 지정
+    @admin.display(
+        boolean=True,
+        ordering='pub_date',
+        description='Published recently?',
+    )
     def was_published_recently(self):
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
